@@ -8,3 +8,7 @@ add_executable(perf-test-1 perf-test-1/perf-test-1.c)
 
 project (perf-test-2)
 add_executable(perf-test-2 perf-test-2/perf-test-2.c)
+
+project (perf-test-3)
+add_executable(perf-test-3 perf-test-3/perf-test-3.c)
+
