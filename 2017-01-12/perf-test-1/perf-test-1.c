@@ -20,7 +20,7 @@ typedef struct
 	float y;
 } Appearance;
 
-#define TEST_SIZE (100000L)
+#define TEST_SIZE (100000000L)
 
 Displacement displacement[TEST_SIZE];
 Velocity velocity[TEST_SIZE];
@@ -49,7 +49,7 @@ int main (int argc, char *argv[])
 
     double avg = 0.0, max = 0.0, min = 999999.0;
     int j;
-    for(j=0; j<1000; j++)
+    for(j=0; j<5; j++)
     {
         clock_t begin = clock();
         for ( i=0; i<TEST_SIZE; i++) {

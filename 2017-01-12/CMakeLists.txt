@@ -15,5 +15,5 @@ add_executable(perf-test-3 perf-test-3/perf-test-3.c)
 project (perf-test-4)
 add_executable(perf-test-4 perf-test-4/perf-test-4.c)
 
-#project (perf-test-5)
-#add_executable(perf-test-5 perf-test-5/perf-test-5.c)
+project (perf-test-5)
+add_executable(perf-test-5 perf-test-5/perf-test-5.c)

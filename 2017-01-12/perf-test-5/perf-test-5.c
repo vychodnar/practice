@@ -20,31 +20,27 @@ typedef struct
 	float y;
 } Appearance;
 
-typedef struct
-{
-	Displacement displacement;
-	Velocity velocity;
-    Appearance appearance;
-} Entity;
-
 #define TEST_SIZE (100000000L)
 
-Entity entity[TEST_SIZE];
+Displacement displacement[TEST_SIZE];
+Velocity velocity[TEST_SIZE];
+Appearance appearance[TEST_SIZE];
+
 
 
 int main (int argc, char *argv[])
 {
-    printf("perf-test-4 > ");
+    printf("perf-test-5 > ");
     unsigned long i;
     {
         clock_t begin = clock();
         for ( i=0; i<TEST_SIZE; i++) {
-            entity[i].displacement.x = i;
-            entity[i].displacement.y = i;
-            entity[i].velocity.x = i / 1000.0f;
-            entity[i].velocity.y = i / 10000.0f;
-            entity[i].appearance.x = 0.001f;
-            entity[i].appearance.y = 0.002;
+            displacement[i].x = i;
+            displacement[i].y = i;
+            velocity[i].x = i / 1000.0f;
+            velocity[i].y = i / 10000.0f;
+            appearance[i].x = 0.001f;
+            appearance[i].y = 0.002;
         }
         clock_t end = clock();
         double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
@@ -55,14 +51,20 @@ int main (int argc, char *argv[])
     int j;
     for(j=0; j<5; j++)
     {
+        Displacement *pd;
+        Velocity *pv;
+        Appearance *pa;
+        float vx, vy;
         clock_t begin = clock();
-        Entity *p;
         for ( i=0; i<TEST_SIZE; i++) {
-            p = &(entity[i]);
-            p->velocity.x += p->appearance.x;
-            p->velocity.y += p->appearance.y;
-            p->displacement.x += p->velocity.x;
-            p->displacement.y += p->velocity.y;
+            pv = &(velocity[i]);
+            pa = &(appearance[i]);
+            pv->x += pa->x;
+            pv->y = pa->y;
+
+            pd = &(displacement[i]);
+            pd->x += pv->x;
+            pd->y += pv->y;
         }
         clock_t end = clock();
         double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
