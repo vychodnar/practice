@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <time.h>
+
+
+typedef struct
+{
+	float x;
+	float y;
+} Displacement;
+
+typedef struct
+{
+	float x;
+	float y;
+} Velocity;
+
+typedef struct
+{
+	float x;
+	float y;
+} Appearance;
+
+#define TEST_SIZE (100000000L)
+
+Displacement displacement[TEST_SIZE];
+Velocity velocity[TEST_SIZE];
+Appearance appearance[TEST_SIZE];
+
+
+
+int main (int argc, char *argv[])
+{
+    printf("perf-test-1!\n");
+    unsigned long i;
+    {
+        clock_t begin = clock();
+        for ( i=0; i<TEST_SIZE; i++) {
+            displacement[i].x = i;
+            displacement[i].y = i;
+            velocity[i].x = i / 1000.0f;
+            velocity[i].y = i / 10000.0f;
+            appearance[i].x = 0.001f;
+            appearance[i].y = 0.002;
+        }
+        clock_t end = clock();
+        double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+        printf ("Time: %f\n", time_spent);
+    }
+
+    {
+        clock_t begin = clock();
+        for ( i=0; i<TEST_SIZE; i++) {
+            velocity[i].x += appearance[i].x;
+            velocity[i].y += appearance[i].y;
+            displacement[i].x += velocity[i].x;
+            displacement[i].y += velocity[i].y;
+        }
+        clock_t end = clock();
+        double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+        printf ("Time: %f\n", time_spent);
+    }
+    printf ("%f\n", displacement[TEST_SIZE-1].x);
+    return 0;
+}
