@@ -34,7 +34,7 @@ Entity entity[TEST_SIZE];
 
 int main (int argc, char *argv[])
 {
-    printf("perf-test-3 > ");
+    printf("perf-test-4 > ");
     unsigned long i;
     {
         clock_t begin = clock();
@@ -56,11 +56,13 @@ int main (int argc, char *argv[])
     for(j=0; j<1000; j++)
     {
         clock_t begin = clock();
+        Entity p;
         for ( i=0; i<TEST_SIZE; i++) {
             //entity[i].velocity.x += entity[i].appearance.x;
             //entity[i].velocity.y += entity[i].appearance.y;
-            entity[i].displacement.x += entity[i].velocity.x;
-            entity[i].displacement.y += entity[i].velocity.y;
+            p = entity[i];
+            p.displacement.x += p.velocity.x;
+            p.displacement.y += p.velocity.y;
         }
         clock_t end = clock();
         double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
